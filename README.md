@@ -25,6 +25,8 @@ Nmap (Network Mapper) is a powerful open-source network scanning tool used for d
         - Run Default Scripts: `nmap -sC <target>`
         - Specify Scripts: `nmap --script <filename>|<category>|<directory>/|<expression>[,...] <target>`
 
+---
+
 2. **Host Discovery**:
     - Nmap identifies active hosts using various techniques, including ICMP ping, TCP SYN, and ARP scans.
     - Customize host discovery options based on your needs.
@@ -66,10 +68,76 @@ nmap 192.168.1.1
 
 Nmap will run a TCP SYN connection scan (default) on the most common ports and an ICMP echo request to determine if the host is up.
 
+---
 
 3. **Host and Port Scanning**:
-    - Use `-p` to specify ports or port ranges for scanning.
-    - Example: `nmap -p 80,443 target_ip`
+
+Certainly! Let's dive into the details of host and port scanning, including open ports, service versions, and the different states for scanned ports.
+
+
+Open Ports and Services
+
+
+When Nmap identifies an open port, it means that a service is actively listening on that port. Here are some common open ports and their associated services:
+
+
+
+Port 80 (HTTP)**:
+    - Service: Web server (usually Apache, Nginx, or IIS)
+    - Information: Hosts websites and serves web pages over HTTP.
+
+Port 443 (HTTPS)**:
+    - Service: Secure web server (usually using TLS/SSL)
+    - Information: Hosts secure websites with encrypted communication.
+
+Port 22 (SSH)**:
+    - Service: Secure Shell (SSH) server
+    - Information: Allows secure remote access to the system via command-line interface.
+
+Port 21 (FTP)**:
+    - Service: File Transfer Protocol (FTP) server
+    - Information: Used for transferring files between systems.
+
+Port 25 (SMTP)**:
+    - Service: Simple Mail Transfer Protocol (SMTP) server
+    - Information: Handles outgoing email communication.
+
+Port 53 (DNS)**:
+    - Service: Domain Name System (DNS) server
+    - Information: Resolves domain names to IP addresses.
+
+Service Versions
+Nmap can often determine the version of a service running on an open port. For example, it can identify the specific web server software (e.g., Apache, Nginx) or the SSH server version (e.g., OpenSSH).
+
+To retrieve service versions, use the `-sV` flag:
+
+```bash
+nmap -sV target_ip
+```
+
+Operating System Detection
+Nmap can also attempt to identify the operating system (OS) running on the target host. It analyzes network responses and compares them against known OS fingerprints.
+
+To perform OS detection, use the `-O` flag:
+
+```bash
+nmap -O target_ip
+```
+
+Different States for Scanned Ports
+Nmap categorizes scanned ports into different states:
+
+**Open**: A service is actively listening on the port, and it is accessible.
+ 
+ **Closed**: No service is listening on the port, and it is not accessible.
+
+**Filtered**: A firewall or filter is blocking connections to the port.
+
+**Unfiltered**: The port is neither open nor closed; Nmap cannot determine its state.
+
+**Open|Filtered**: Nmap cannot conclusively determine if the port is open or filtered.
+
+---
 
 4. **Saving the Results**:
     - Save scan results in different formats:
